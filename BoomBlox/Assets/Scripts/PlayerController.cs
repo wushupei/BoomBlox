@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
             {
                 //生成方块,设置颜色和添加脚本
                 GameObject obj = Instantiate(cube, transform.GetChild(index).position, cube.transform.rotation);
-                obj.GetComponent<MeshRenderer>().material.color = Color.blue;
+                obj.GetComponent<MeshRenderer>().material.color = Color.red;
                 obj.AddComponent<Cube>().speed = speed;            
             }
         }
