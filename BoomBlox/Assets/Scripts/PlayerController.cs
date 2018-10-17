@@ -9,6 +9,10 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject cube; //预制体
     public float speed;
+    void Start()
+    {
+        Input.multiTouchEnabled = false; //关闭多点触碰
+    }
     void Update()
     {
         ShootCube();
@@ -31,7 +35,7 @@ public class PlayerController : MonoBehaviour
                 //生成方块,设置颜色和添加脚本
                 GameObject obj = Instantiate(cube, transform.GetChild(index).position, cube.transform.rotation);
                 obj.GetComponent<MeshRenderer>().material.color = Color.red;
-                obj.AddComponent<Cube>().speed = speed;            
+                obj.AddComponent<Cube>().speed = speed;
             }
         }
     }

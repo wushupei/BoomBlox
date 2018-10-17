@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boundary : MonoBehaviour
+public class Boundary : MonoBehaviour //触发边界
 {
     CreateLevel cl; //声明生成关卡脚本
     GameObject boom; //特效
     AudioClip clip; //声音
+    public GameObject player;
+    public GameObject menu;
     void Start()
     {
         cl = FindObjectOfType<CreateLevel>();
@@ -20,11 +22,12 @@ public class Boundary : MonoBehaviour
     }
     void OnTriggerEnter(Collider cube) //触发一次
     {
-        if (cube.transform.GetComponent<Menu>() == null) //如果不是菜单
+        if (cube.gameObject != menu)//如果不是菜单
         {
-            //删除主角的控制脚本
-            if (FindObjectOfType<PlayerController>())
-                Destroy(FindObjectOfType<PlayerController>());
+            //结算分数
+            menu.GetComponent<Menu>().SaveScore();
+            //禁用主角
+            player.SetActive(false);
             //停止生成关卡
             cl.isLife = false;
             //生成特效和声音
@@ -33,6 +36,6 @@ public class Boundary : MonoBehaviour
             Destroy(cube.gameObject);
         }
         else //如果是菜单则展示
-            cube.transform.GetComponent<Menu>().show = true;
+            menu.GetComponent<Menu>().show = true;
     }
 }
